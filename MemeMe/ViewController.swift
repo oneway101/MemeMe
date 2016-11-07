@@ -23,36 +23,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeColorAttributeName : UIColor.black,
         NSForegroundColorAttributeName : UIColor.white,
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : NSNumber(value: 2.00)
+        NSStrokeWidthAttributeName : NSNumber(value: -3.00)
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
         topText.delegate = self
         bottomText.delegate = self
+        topText.defaultTextAttributes = memeTextAttributes
+        bottomText.defaultTextAttributes = memeTextAttributes
         topText.placeholder = "TOP"
         bottomText.placeholder = "BOTTOM"
         topText.textAlignment = .center
         bottomText.textAlignment = .center
         topText.backgroundColor = UIColor.clear
         bottomText.backgroundColor = UIColor.clear
-        //when textColor is set, it does not show the black stroke
-        //topText.textColor = UIColor.white
+        topText.borderStyle = .none
         bottomText.borderStyle = .none
-        topText.defaultTextAttributes = memeTextAttributes
-        bottomText.defaultTextAttributes = memeTextAttributes
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         // Subscribe to keyboard notifications to allow the view to raise when necessary
-        self.subscribeToKeyboardNotifications()
+        //self.subscribeToKeyboardNotifications()
 
     }
     // Unsubscribe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.unsubscribeToKeyboardNotifications()
+        //self.unsubscribeToKeyboardNotifications()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -81,7 +82,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.resignFirstResponder()
         return true
     }
-    
+    /*
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo!
         let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
@@ -96,6 +97,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func unsubscribeToKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object:nil)
     }
+    */
     
 
 }

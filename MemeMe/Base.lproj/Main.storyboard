@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -47,9 +46,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BOTTOM" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ilx-9S-7zo" userLabel="bottomText">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ilx-9S-7zo" userLabel="bottomText">
                                 <rect key="frame" x="139" y="531" width="97" height="30"/>
                                 <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
@@ -59,15 +59,15 @@
                             <constraint firstAttribute="trailing" secondItem="68b-hA-a0k" secondAttribute="trailing" id="6gD-OB-MbN"/>
                             <constraint firstItem="xHr-7S-tP6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6tP-Wb-LyZ"/>
                             <constraint firstItem="xoX-50-UPi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="Aav-L7-aIT"/>
+                            <constraint firstItem="xoX-50-UPi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Koc-Xu-fTS"/>
+                            <constraint firstAttribute="trailing" secondItem="ilx-9S-7zo" secondAttribute="trailing" id="MNl-s9-8Pq"/>
                             <constraint firstItem="68b-hA-a0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SD4-a7-be9"/>
+                            <constraint firstItem="ilx-9S-7zo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WNK-jz-p4v"/>
                             <constraint firstAttribute="trailing" secondItem="xHr-7S-tP6" secondAttribute="trailing" id="YR1-6I-zFj"/>
-                            <constraint firstItem="xoX-50-UPi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="100" id="ZPz-6O-bse"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ilx-9S-7zo" secondAttribute="trailing" constant="100" id="bOE-eK-Ft8"/>
+                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="ilx-9S-7zo" secondAttribute="bottom" constant="50" id="ZnU-tj-SKy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xHr-7S-tP6" secondAttribute="bottom" id="jAa-gh-ngq"/>
                             <constraint firstItem="68b-hA-a0k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="mfl-te-eB0"/>
-                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="ilx-9S-7zo" secondAttribute="bottom" constant="50" id="n66-lJ-kuc"/>
-                            <constraint firstItem="ilx-9S-7zo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="100" id="o01-rG-sDM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xoX-50-UPi" secondAttribute="trailing" constant="100" id="y2S-JO-zI2"/>
+                            <constraint firstAttribute="trailing" secondItem="xoX-50-UPi" secondAttribute="trailing" id="z3Y-Cu-Yb3"/>
                         </constraints>
                     </view>
                     <connections>
