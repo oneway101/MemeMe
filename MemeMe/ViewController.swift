@@ -19,12 +19,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let imagePicker = UIImagePickerController()
     
+    struct Meme{
+        var topText: String
+        var bottomText: String
+        var originalImage: UIImage
+        var memedImage: UIImage
+    }
+    
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.black,
         NSForegroundColorAttributeName : UIColor.white,
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName : NSNumber(value: -3.00)
     ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
@@ -40,9 +48,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomText.backgroundColor = UIColor.clear
         topText.borderStyle = .none
         bottomText.borderStyle = .none
-        
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
@@ -99,5 +106,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     */
     
-
+    func save() {
+        //Create the meme
+        let meme = Meme( topText: topText.text!, bottomText: bottomText.text!, originalImage:
+            imagePicker.image, memedImage: generateMemedImage())
+    }
+    
+    // Create a UIImage that combines the Image View and the Textfields
+    func generateMemedImage() -> UIImage {
+        // render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return memedImage
+    }
+    
+    
+    
 }
