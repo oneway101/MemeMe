@@ -24,7 +24,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68b-hA-a0k">
                                 <rect key="frame" x="-1.6259591160755917" y="78.020505340864474" width="375.00000000000017" height="512"/>
                             </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHr-7S-tP6">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHr-7S-tP6" userLabel="bottomToolbar">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Album" id="6yf-so-pFI">
@@ -52,6 +52,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcB-f4-USI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Share" id="bsk-Bs-lvr"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hxT-1R-9Al"/>
+                                    <barButtonItem title="Cancel" id="CWb-8A-IOQ"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -72,6 +81,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomText" destination="ilx-9S-7zo" id="RLA-lY-A4R"/>
+                        <outlet property="bottomToolbar" destination="xHr-7S-tP6" id="fRi-kp-9Uv"/>
                         <outlet property="cameraButton" destination="qkQ-UF-yku" id="7Ta-vA-lPS"/>
                         <outlet property="imagePickerView" destination="68b-hA-a0k" id="UAm-yf-WN9"/>
                         <outlet property="topText" destination="xoX-50-UPi" id="Es7-la-1vj"/>
