@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var topNavbar: UINavigationBar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -18,6 +19,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var bottomText: UITextField!
     
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+
     let imagePicker = UIImagePickerController()
     
     struct Meme{
@@ -104,13 +107,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         else{
             self.view.frame.origin.y = 0
         }
-        bottomToolbar.isHidden = true
     }
     func keyboardWillHide(_ notification:Notification){
         if bottomText.isFirstResponder{
             self.view.frame.origin.y = 0
         }
-        bottomToolbar.isHidden = false
     }
     
     func subscribeToKeyboardNotifications() {
@@ -121,25 +122,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
     }
     
-    func save() {
+    func save(_ generatedMeme: UIImage) {
         //Create the meme
         var meme = Meme( topText: topText.text!, bottomText: bottomText.text!, originalImage:
-            imagePickerView.image, memedImage: generateMemedImage())
+            imagePickerView.image, memedImage: generatedMeme)
     }
     
     // Create a UIImage that combines the Image View and the Textfields
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
-        //bottomToolbar.isHidden = true
-        //navigationController?.setToolbarHidden(true, animated: true)
+        topNavbar.isHidden = true
+        bottomToolbar.isHidden = true
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
+        // Show toolbar and navbar
+        topNavbar.isHidden = false
+        bottomToolbar.isHidden = false
+    
         return memedImage
     }
-    
+    @IBAction func shareMeme(){
+        let generatedMeme = generateMemedImage()
+        let activityViewController = UIActivityViewController.init(activityItems: [generatedMeme], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+        activityViewController.completionWithItemsHandler = {
+            (activity, completed, returned, error) in
+            if(completed){
+                self.save(generatedMeme)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
     
     
 }
