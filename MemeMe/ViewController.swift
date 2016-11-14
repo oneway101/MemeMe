@@ -14,13 +14,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomToolbar: UIToolbar!
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
-    
     @IBOutlet weak var topText: UITextField!
-    
     @IBOutlet weak var bottomText: UITextField!
-    
     @IBOutlet weak var shareButton: UIBarButtonItem!
-
+    @IBOutlet weak var cancelMemeButton: UIBarButtonItem!
+    
     let imagePicker = UIImagePickerController()
     
     struct Meme{
@@ -44,14 +42,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomText.delegate = self
         topText.defaultTextAttributes = memeTextAttributes
         bottomText.defaultTextAttributes = memeTextAttributes
-        topText.placeholder = "TOP"
-        bottomText.placeholder = "BOTTOM"
+        topText.text = "TOP"
+        bottomText.text = "BOTTOM"
         topText.textAlignment = .center
         bottomText.textAlignment = .center
         topText.backgroundColor = UIColor.clear
         bottomText.backgroundColor = UIColor.clear
         topText.borderStyle = .none
         bottomText.borderStyle = .none
+        self.view.backgroundColor = UIColor.black
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.placeholder = ""
+        textField.text = ""
     }
     
     // Hide the keyboard.
@@ -158,6 +159,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    
-    
+    @IBAction func cancelMeme(sender:AnyObject){
+        self.dismiss(animated: true, completion: nil)
+        //print("cancel button is pressed")
+    }
 }
