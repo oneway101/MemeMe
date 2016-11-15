@@ -51,7 +51,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topText.borderStyle = .none
         bottomText.borderStyle = .none
         self.view.backgroundColor = UIColor.black
-        
+        shareButton.isEnabled = false
 
     }
     
@@ -72,6 +72,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             imagePickerView.image = image
+            //Where to enable the shareButton?
+            shareButton.isEnabled = true
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -125,7 +127,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save(_ generatedMeme: UIImage) {
         //Create the meme
-        var meme = Meme( topText: topText.text!, bottomText: bottomText.text!, originalImage:
+        _ = Meme( topText: topText.text!, bottomText: bottomText.text!, originalImage:
             imagePickerView.image, memedImage: generatedMeme)
     }
     
@@ -159,8 +161,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    @IBAction func cancelMeme(sender:AnyObject){
-        self.dismiss(animated: true, completion: nil)
-        //print("cancel button is pressed")
+    @IBAction func cancelMeme(){
+        topText.text = "TOP"
+        bottomText.text = "BOTTOM"
+        imagePickerView.image = nil
     }
 }
