@@ -37,22 +37,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker.delegate = self
-        topText.delegate = self
-        bottomText.delegate = self
-        topText.defaultTextAttributes = memeTextAttributes
-        bottomText.defaultTextAttributes = memeTextAttributes
-        topText.text = "TOP"
-        bottomText.text = "BOTTOM"
-        topText.textAlignment = .center
-        bottomText.textAlignment = .center
-        topText.backgroundColor = UIColor.clear
-        bottomText.backgroundColor = UIColor.clear
-        topText.borderStyle = .none
-        bottomText.borderStyle = .none
-        self.view.backgroundColor = UIColor.black
-        shareButton.isEnabled = false
-
+        defaultSetting()
+        configureTextField(textField: topText)
+        configureTextField(textField: bottomText)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +53,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeToKeyboardNotifications()
+    }
+    
+    func configureTextField(textField: UITextField){
+        textField.delegate = self
+        textField.returnKeyType = .done
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+        textField.backgroundColor = UIColor.clear
+        textField.borderStyle = .none
+    }
+    
+    func defaultSetting(){
+        imagePicker.delegate = self
+        topText.text = "TOP"
+        bottomText.text = "BOTTOM"
+        self.view.backgroundColor = UIColor.black
+        shareButton.isEnabled = false
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -105,12 +109,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func keyboardWillShow(_ notification:Notification) {
         if bottomText.isFirstResponder{
-        self.view.frame.origin.y -= getKeyboardHeight(notification)
+        self.view.frame.origin.y = -(getKeyboardHeight(notification))
         }
         else{
             self.view.frame.origin.y = 0
         }
     }
+    
     func keyboardWillHide(_ notification:Notification){
         if bottomText.isFirstResponder{
             self.view.frame.origin.y = 0

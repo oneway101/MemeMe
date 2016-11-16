@@ -33,7 +33,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="RE6-18-6mM"/>
-                                    <barButtonItem image="camera" id="qkQ-UF-yku">
+                                    <barButtonItem systemItem="camera" id="qkQ-UF-yku">
                                         <connections>
                                             <action selector="pickImageFromCameraWithSender:" destination="BYZ-38-t0r" id="3e9-vu-Ctj"/>
                                         </connections>
@@ -56,7 +56,7 @@
                                 <rect key="frame" x="-1" y="0.0" width="377" height="44"/>
                                 <items>
                                     <navigationItem title="Meme" id="HBl-sa-Kzn">
-                                        <barButtonItem key="leftBarButtonItem" image="share" id="KJk-XM-4cw">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="KJk-XM-4cw">
                                             <connections>
                                                 <action selector="shareMeme" destination="BYZ-38-t0r" id="YY7-Ed-5Ti"/>
                                             </connections>
@@ -106,8 +106,4 @@
             <point key="canvasLocation" x="117.59999999999999" y="90.404797601199405"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="camera" width="50" height="50"/>
-        <image name="share" width="50" height="50"/>
-    </resources>
 </document>
