@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var topNavbar: UINavigationBar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
@@ -20,13 +20,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cancelMemeButton: UIBarButtonItem!
     
     let imagePicker = UIImagePickerController()
-    
-    struct Meme{
-        var topText: String
-        var bottomText: String
-        var originalImage: UIImage?
-        var memedImage: UIImage?
-    }
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.black,
@@ -76,7 +69,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             imagePickerView.image = image
-            //Where to enable the shareButton?
             shareButton.isEnabled = true
             self.dismiss(animated: true, completion: nil)
         }
@@ -132,11 +124,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save(_ generatedMeme: UIImage) {
         //Create the meme
-        _ = Meme( topText: topText.text!, bottomText: bottomText.text!, originalImage:
-            imagePickerView.image, memedImage: generatedMeme)
+        let meme = Meme( topText: topText.text!,
+                         bottomText: bottomText.text!,
+                         originalImage: imagePickerView.image,
+                         memedImage: generatedMeme)
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     // Create a UIImage that combines the Image View and the Textfields
+    //TODO: implement a method that detects the image's onscreen location and adjusts the position of the text fields accordingly. This way, the text will always be located in the correct position, regardless of the image size.
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
         topNavbar.isHidden = true
@@ -170,5 +168,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
         imagePickerView.image = nil
+        dismiss(animated: true, completion: nil)
     }
 }
