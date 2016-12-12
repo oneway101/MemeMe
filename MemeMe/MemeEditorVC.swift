@@ -131,6 +131,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
+        print("Your saved memes: \(appDelegate.memes)")
     }
     
     // Create a UIImage that combines the Image View and the Textfields
