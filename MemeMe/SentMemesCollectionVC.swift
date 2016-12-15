@@ -8,7 +8,7 @@
 
 import UIKit
 
-class sentMemesCollectionVC: UICollectionViewController {
+class SentMemesCollectionVC: UICollectionViewController {
     
     @IBAction func createNewMeme(_ sender: Any) {
         performSegue(withIdentifier: "createNewMeme", sender: self)
@@ -18,6 +18,10 @@ class sentMemesCollectionVC: UICollectionViewController {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let cellID = "SentMemesCollectionViewCell"
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.memesCollectionView.reloadData()
+    }
     
     override func viewDidLoad() {
         
@@ -38,8 +42,9 @@ class sentMemesCollectionVC: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = memesCollectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) //as! SentMemesCollectionViewCell
+        let cell = memesCollectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SentMemesCollectionViewCell
         let meme = appDelegate.memes[indexPath.row]
+        cell.memeImagePreview.image = meme.memedImage
         return cell
     }
 

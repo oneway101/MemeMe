@@ -10,4 +10,5 @@ import UIKit
 
 class SentMemesCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var memeImagePreview: UIImageView!
 }

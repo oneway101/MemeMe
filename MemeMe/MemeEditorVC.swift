@@ -61,7 +61,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         imagePicker.delegate = self
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
-        self.view.backgroundColor = UIColor.black
+        //self.view.backgroundColor = UIColor.black
         shareButton.isEnabled = false
     }
     

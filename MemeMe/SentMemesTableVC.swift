@@ -8,7 +8,7 @@
 
 import UIKit
 
-class sentMemesTableVC: UITableViewController {
+class SentMemesTableVC: UITableViewController {
     
     @IBOutlet var memesTableView: UITableView!
     
@@ -20,6 +20,7 @@ class sentMemesTableVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
         print(appDelegate.memes.count)
     }
     
@@ -29,18 +30,19 @@ class sentMemesTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell =  tableView.dequeueReusableCell(withIdentifier: cellID)! //as! sentMemesTableViewCell
+        let cell =  tableView.dequeueReusableCell(withIdentifier: cellID) as! SentMemesTableViewCell
         let meme = appDelegate.memes[(indexPath as NSIndexPath).row]
-        // set the image and name
-        cell.textLabel?.text = meme.topText + " " + meme.bottomText
-        cell.imageView?.image = meme.memedImage
+        cell.memeImagePreview.image = meme.memedImage
+        cell.sentTopText.text = meme.topText
+        cell.sentBottomText.text = meme.bottomText
+
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailController = storyboard!.instantiateViewController(withIdentifier: "detailViewController") as! detailViewController
+        let detailController = storyboard!.instantiateViewController(withIdentifier: "detailViewController") as! DetailViewController
         let selectedMeme = appDelegate.memes[indexPath.row]
-        detailController.detailImageView?.image = selectedMeme.memedImage
+        detailController.meme = selectedMeme.memedImage
         navigationController!.pushViewController(detailController, animated: true)
     }
     

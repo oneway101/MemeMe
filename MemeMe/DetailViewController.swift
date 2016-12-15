@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class detailViewController: UIViewController {
+class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailImageView: UIImageView!
-    var selectedMeme: UIImage!
+    var meme: UIImage!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        detailImageView.image = selectedMeme
+        detailImageView.image = meme
     }
 }
