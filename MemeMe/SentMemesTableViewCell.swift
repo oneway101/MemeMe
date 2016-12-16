@@ -9,8 +9,8 @@
 import UIKit
 
 class SentMemesTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var memeImagePreview: UIImageView!
-
     @IBOutlet weak var sentTopText: UILabel!
     @IBOutlet weak var sentBottomText: UILabel!
     

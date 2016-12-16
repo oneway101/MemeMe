@@ -122,6 +122,10 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
     }
     
+//    func imageCapture()-> CGRect{
+//        
+//    }
+    
     func save(_ generatedMeme: UIImage) {
         //Create the meme
         let meme = Meme( topText: topText.text!,
