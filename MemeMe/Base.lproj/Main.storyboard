@@ -231,7 +231,7 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ilx-9S-7zo" userLabel="bottomText">
-                                <rect key="frame" x="0.0" y="568" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="563" width="375" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -254,7 +254,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xoX-50-UPi" userLabel="topText">
-                                <rect key="frame" x="0.0" y="89" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -265,17 +265,16 @@
                             <constraint firstAttribute="trailing" secondItem="68b-hA-a0k" secondAttribute="trailing" id="6gD-OB-MbN"/>
                             <constraint firstItem="xHr-7S-tP6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6tP-Wb-LyZ"/>
                             <constraint firstItem="xoX-50-UPi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Koc-Xu-fTS"/>
-                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="68b-hA-a0k" secondAttribute="bottom" id="LDH-2K-UKF"/>
+                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="ilx-9S-7zo" secondAttribute="bottom" constant="30" id="LIS-Dk-5vr"/>
                             <constraint firstAttribute="trailing" secondItem="ilx-9S-7zo" secondAttribute="trailing" id="MNl-s9-8Pq"/>
                             <constraint firstItem="Xd0-mE-Lt6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QbD-hY-3HS"/>
                             <constraint firstItem="68b-hA-a0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SD4-a7-be9"/>
+                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="68b-hA-a0k" secondAttribute="bottom" id="SxB-kc-RQA"/>
+                            <constraint firstItem="xoX-50-UPi" firstAttribute="top" secondItem="68b-hA-a0k" secondAttribute="top" constant="30" id="U9z-Ms-aUL"/>
                             <constraint firstItem="ilx-9S-7zo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WNK-jz-p4v"/>
                             <constraint firstAttribute="trailing" secondItem="xHr-7S-tP6" secondAttribute="trailing" id="YR1-6I-zFj"/>
-                            <constraint firstItem="xHr-7S-tP6" firstAttribute="top" secondItem="68b-hA-a0k" secondAttribute="bottom" id="dr9-Li-IPx"/>
-                            <constraint firstItem="ilx-9S-7zo" firstAttribute="bottom" secondItem="68b-hA-a0k" secondAttribute="bottom" constant="-25" id="iqR-AU-aGJ"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xHr-7S-tP6" secondAttribute="bottom" id="jAa-gh-ngq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xHr-7S-tP6" secondAttribute="bottom" id="hyM-BY-HSi"/>
                             <constraint firstItem="68b-hA-a0k" firstAttribute="top" secondItem="Xd0-mE-Lt6" secondAttribute="bottom" id="mLq-qT-FeR"/>
-                            <constraint firstItem="68b-hA-a0k" firstAttribute="top" secondItem="xoX-50-UPi" secondAttribute="bottom" constant="-55" id="n2x-7u-Gax"/>
                             <constraint firstItem="Xd0-mE-Lt6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="qyg-Cb-Wzp"/>
                             <constraint firstAttribute="trailing" secondItem="Xd0-mE-Lt6" secondAttribute="trailing" id="uCk-ad-xh6"/>
                             <constraint firstAttribute="trailing" secondItem="xoX-50-UPi" secondAttribute="trailing" id="z3Y-Cu-Yb3"/>
@@ -283,6 +282,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomText" destination="ilx-9S-7zo" id="RLA-lY-A4R"/>
+                        <outlet property="bottomTextConstraint" destination="LIS-Dk-5vr" id="ceZ-DD-h5H"/>
                         <outlet property="bottomToolbar" destination="xHr-7S-tP6" id="fRi-kp-9Uv"/>
                         <outlet property="cameraButton" destination="qkQ-UF-yku" id="7Ta-vA-lPS"/>
                         <outlet property="cancelMemeButton" destination="AcM-Fi-ra4" id="mjS-dV-zKr"/>
@@ -290,11 +290,12 @@
                         <outlet property="shareButton" destination="KJk-XM-4cw" id="6PG-UR-LPO"/>
                         <outlet property="topNavbar" destination="Xd0-mE-Lt6" id="tMW-uz-BVz"/>
                         <outlet property="topText" destination="xoX-50-UPi" id="Es7-la-1vj"/>
+                        <outlet property="topTextConstraint" destination="U9z-Ms-aUL" id="l7L-bG-g4G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532" y="186"/>
+            <point key="canvasLocation" x="1290" y="242"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Fv3-9a-wTk">
@@ -308,12 +309,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-KX-2QU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-KX-2QU">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nvl-KX-2QU" firstAttribute="leading" secondItem="rQl-9N-L2E" secondAttribute="leading" id="HLr-QG-ync"/>
+                            <constraint firstAttribute="trailing" secondItem="nvl-KX-2QU" secondAttribute="trailing" id="duK-zB-JZb"/>
+                            <constraint firstItem="7Z8-yv-yNs" firstAttribute="top" secondItem="nvl-KX-2QU" secondAttribute="bottom" id="svu-bE-BBc"/>
+                            <constraint firstItem="nvl-KX-2QU" firstAttribute="top" secondItem="qbI-oZ-w1l" secondAttribute="bottom" id="yxN-jT-uq6"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yYw-78-990"/>
                     <connections>

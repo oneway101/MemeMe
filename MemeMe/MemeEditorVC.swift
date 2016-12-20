@@ -19,9 +19,15 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelMemeButton: UIBarButtonItem!
     
-    var selectedImage: UIImage!
-    var newMemeWidth: CGFloat!
-    var newMemeHeight: CGFloat!
+    var selectedImage: UIImage?
+    var newMemeWidth: CGFloat?
+    var newMemeHeight: CGFloat?
+    
+    var xCoord:CGFloat! = 0.0
+    var yCoord:CGFloat! = 0.0
+    
+    @IBOutlet weak var topTextConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomTextConstraint: NSLayoutConstraint!
     
     let imagePicker = UIImagePickerController()
     
@@ -44,8 +50,10 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         // Subscribe to keyboard notifications to allow the view to raise when necessary
         subscribeToKeyboardNotifications()
-    
+        // Subscribe to device orientation changes
+        subscribeToDeviceOrientationNotification()
     }
+    
     // Unsubscribe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -83,8 +91,12 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*self.view.frame.width
         print("deviceWidth: \(self.view.frame.width)")
         print("deviceHeight: \(self.view.frame.height)")
-        print("newWidth: \(newMemeWidth)")
-        print("newHeight: \(newMemeHeight)")
+        print("newWidth: \(newMemeWidth!)")
+        print("newHeight: \(newMemeHeight!)")
+        
+        yCoord = (imagePickerView.frame.height-newMemeHeight!)*0.5
+        print("yCoord:\(yCoord!)")
+        repositionTextField()
     }
     
     @IBAction func pickImageFromAlbum(sender: AnyObject){
@@ -135,16 +147,33 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
     }
     
+    func subscribeToDeviceOrientationNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorVC.orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    func orientationDidChange(_ notification:Notification){
+        repositionTextField()
+    }
+    
+    func repositionTextField(){
+        //update textField constraints on the portrait view
+        if(UIApplication.shared.statusBarOrientation.isPortrait){
+            topTextConstraint.constant = yCoord + 30
+            bottomTextConstraint.constant = yCoord + 30
+            print("constraints updated: \(topTextConstraint.constant)")
+        }else{
+            topTextConstraint.constant = 30
+            bottomTextConstraint.constant = 30
+        }
+    }
+    
     func memeCGRect()-> CGRect{
-        let xCoord:CGFloat = 0.0
-        let yCoord:CGFloat = (imagePickerView.frame.height-newMemeHeight)*0.5
-        print("yCoord:\(yCoord)")
-        let cgRect = CGRect(x: xCoord, y: yCoord, width: newMemeWidth, height: newMemeHeight)
+        let cgRect = CGRect(x: xCoord, y: yCoord, width: newMemeWidth!, height: newMemeHeight!)
         return cgRect
     }
     
     func memeCGSize()-> CGSize{
-        let cgSize = CGSize(width: newMemeWidth, height: newMemeHeight)
+        let cgSize = CGSize(width: newMemeWidth!, height: newMemeHeight!)
         return cgSize
     }
     
@@ -167,10 +196,10 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         bottomToolbar.isHidden = true
         
         // Render view to an image
-        //UIGraphicsBeginImageContext(self.view.frame.size)
-        //self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
-        UIGraphicsBeginImageContext(self.memeCGSize())
-        self.view.drawHierarchy(in: self.memeCGRect(), afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        //UIGraphicsBeginImageContext(self.memeCGSize())
+        //self.view.drawHierarchy(in: self.memeCGRect(), afterScreenUpdates: true)
         let renderedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
