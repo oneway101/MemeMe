@@ -19,6 +19,10 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelMemeButton: UIBarButtonItem!
     
+    var selectedImage: UIImage!
+    var newMemeWidth: CGFloat!
+    var newMemeHeight: CGFloat!
+    
     let imagePicker = UIImagePickerController()
     
     let memeTextAttributes = [
@@ -69,9 +73,18 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             imagePickerView.image = image
+            selectedImage = image
             shareButton.isEnabled = true
             self.dismiss(animated: true, completion: nil)
         }
+        
+        //calculate selected meme image dimensions
+        newMemeWidth = self.view.frame.width
+        newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*self.view.frame.width
+        print("deviceWidth: \(self.view.frame.width)")
+        print("deviceHeight: \(self.view.frame.height)")
+        print("newWidth: \(newMemeWidth)")
+        print("newHeight: \(newMemeHeight)")
     }
     
     @IBAction func pickImageFromAlbum(sender: AnyObject){
@@ -122,9 +135,18 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
     }
     
-//    func imageCapture()-> CGRect{
-//        
-//    }
+    func memeCGRect()-> CGRect{
+        let xCoord:CGFloat = 0.0
+        let yCoord:CGFloat = (imagePickerView.frame.height-newMemeHeight)*0.5
+        print("yCoord:\(yCoord)")
+        let cgRect = CGRect(x: xCoord, y: yCoord, width: newMemeWidth, height: newMemeHeight)
+        return cgRect
+    }
+    
+    func memeCGSize()-> CGSize{
+        let cgSize = CGSize(width: newMemeWidth, height: newMemeHeight)
+        return cgSize
+    }
     
     func save(_ generatedMeme: UIImage) {
         //Create the meme
@@ -135,7 +157,6 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
-        print("Your saved memes: \(appDelegate.memes)")
     }
     
     // Create a UIImage that combines the Image View and the Textfields
@@ -146,16 +167,18 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         bottomToolbar.isHidden = true
         
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
-        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        //UIGraphicsBeginImageContext(self.view.frame.size)
+        //self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(self.memeCGSize())
+        self.view.drawHierarchy(in: self.memeCGRect(), afterScreenUpdates: true)
+        let renderedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
         topNavbar.isHidden = false
         bottomToolbar.isHidden = false
-    
-        return memedImage
+        
+        return renderedImage
     }
     @IBAction func shareMeme(){
         let generatedMeme = generateMemedImage()
