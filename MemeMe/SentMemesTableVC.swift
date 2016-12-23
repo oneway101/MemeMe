@@ -21,7 +21,7 @@ class SentMemesTableVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
-        self.view.backgroundColor = UIColor.purple
+        //self.view.backgroundColor = UIColor.purple
         print(appDelegate.memes.count)
     }
     
@@ -36,7 +36,7 @@ class SentMemesTableVC: UITableViewController {
         cell.memeImagePreview.image = meme.memedImage
         cell.sentTopText.text = meme.topText
         cell.sentBottomText.text = meme.bottomText
-        cell.backgroundColor = UIColor.green
+        //cell.backgroundColor = UIColor.green
         return cell
     }
     

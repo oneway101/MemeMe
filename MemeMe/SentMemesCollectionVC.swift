@@ -44,7 +44,7 @@ class SentMemesCollectionVC: UICollectionViewController {
         let cell = memesCollectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SentMemesCollectionViewCell
         let meme = appDelegate.memes[indexPath.row]
         cell.memeImagePreview.image = meme.memedImage
-        cell.backgroundColor = UIColor.green
+        //cell.backgroundColor = UIColor.green
 
         return cell
     }
