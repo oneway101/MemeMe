@@ -23,6 +23,8 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     var newMemeWidth: CGFloat?
     var newMemeHeight: CGFloat?
     
+    var widthEmptySpace:CGFloat! = 0.0
+    var heightEmptySpace:CGFloat! = 0.0
     var xCoord:CGFloat! = 0.0
     var yCoord:CGFloat! = 0.0
     
@@ -52,6 +54,9 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         subscribeToKeyboardNotifications()
         // Subscribe to device orientation changes
         subscribeToDeviceOrientationNotification()
+        
+        navigationController?.hidesBarsOnTap = true
+
     }
     
     // Unsubscribe
@@ -73,7 +78,6 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         imagePicker.delegate = self
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
-        //self.view.backgroundColor = UIColor.black
         shareButton.isEnabled = false
     }
     
@@ -85,18 +89,32 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             shareButton.isEnabled = true
             self.dismiss(animated: true, completion: nil)
         }
-        
-        //calculate selected meme image dimensions
-        newMemeWidth = self.view.frame.width
-        newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*self.view.frame.width
-        print("deviceWidth: \(self.view.frame.width)")
-        print("deviceHeight: \(self.view.frame.height)")
-        print("newWidth: \(newMemeWidth!)")
-        print("newHeight: \(newMemeHeight!)")
-        
-        yCoord = (imagePickerView.frame.height-newMemeHeight!)*0.5
-        print("yCoord:\(yCoord!)")
         repositionTextField()
+    }
+    
+    func calculateMemePortraitDimensions(){
+        //calculate selected meme image dimensions for portrait size
+        newMemeWidth = imagePickerView.frame.width
+        newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*self.view.frame.width
+        heightEmptySpace = (imagePickerView.frame.height-newMemeHeight!)*0.5
+        widthEmptySpace = 0
+        if(newMemeHeight! > imagePickerView.frame.height){
+            heightEmptySpace = 0
+            widthEmptySpace = (imagePickerView.frame.width-newMemeWidth!)*0.5
+        }
+        xCoord = widthEmptySpace
+        yCoord = topNavbar.frame.height+heightEmptySpace
+
+    }
+    func calculateMemeLandscapeDimensions(){
+        //calculate selected meme image dimensions for portrait size
+        newMemeHeight = imagePickerView.frame.height
+        newMemeWidth = (imagePickerView.image!.size.width/imagePickerView.image!.size.height)*imagePickerView.frame.height
+        print("newMemeWidth in landscape: \(newMemeWidth)")
+        widthEmptySpace = (imagePickerView.frame.width-newMemeWidth!)*0.5
+        xCoord = widthEmptySpace
+        print("xCoord in landscape: \(xCoord)")
+        yCoord = topNavbar.frame.height
     }
     
     @IBAction func pickImageFromAlbum(sender: AnyObject){
@@ -147,6 +165,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
     }
     
+    //MARK: Device Orientation Notification
     func subscribeToDeviceOrientationNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorVC.orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
@@ -157,18 +176,20 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     func repositionTextField(){
         //update textField constraints on the portrait view
-        if(UIApplication.shared.statusBarOrientation.isPortrait){
-            topTextConstraint.constant = yCoord + 30
-            bottomTextConstraint.constant = yCoord + 30
-            print("constraints updated: \(topTextConstraint.constant)")
+        if UIApplication.shared.statusBarOrientation.isPortrait {
+            calculateMemePortraitDimensions()
+            topTextConstraint.constant = heightEmptySpace + 30
+            bottomTextConstraint.constant = heightEmptySpace + 30
         }else{
+            calculateMemeLandscapeDimensions()
             topTextConstraint.constant = 30
             bottomTextConstraint.constant = 30
         }
     }
     
     func memeCGRect()-> CGRect{
-        let cgRect = CGRect(x: xCoord, y: yCoord, width: newMemeWidth!, height: newMemeHeight!)
+        let cgRect = CGRect(x: -xCoord, y: -yCoord , width: self.view.frame.width, height: self.view.frame.height)
+        print("printing cgRect:\(cgRect)")
         return cgRect
     }
     
@@ -189,17 +210,15 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
     // Create a UIImage that combines the Image View and the Textfields
-    //TODO: implement a method that detects the image's onscreen location and adjusts the position of the text fields accordingly. This way, the text will always be located in the correct position, regardless of the image size.
+
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
         topNavbar.isHidden = true
         bottomToolbar.isHidden = true
-        
+       
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
-        //UIGraphicsBeginImageContext(self.memeCGSize())
-        //self.view.drawHierarchy(in: self.memeCGRect(), afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(self.memeCGSize())
+        self.view.drawHierarchy(in: self.memeCGRect(), afterScreenUpdates: true)
         let renderedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
@@ -228,3 +247,4 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         dismiss(animated: true, completion: nil)
     }
 }
+

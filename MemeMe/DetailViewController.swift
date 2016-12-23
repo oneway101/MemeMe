@@ -18,5 +18,7 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         self.view.backgroundColor = UIColor.purple
         detailImageView.image = meme
+        
+        navigationController?.hidesBarsOnTap = true
     }
 }

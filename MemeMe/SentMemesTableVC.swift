@@ -41,10 +41,21 @@ class SentMemesTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailController = storyboard!.instantiateViewController(withIdentifier: "detailViewController") as! DetailViewController
+        //let detailController = storyboard!.instantiateViewController(withIdentifier: "detailViewController") as! DetailViewController
+        
         let selectedMeme = appDelegate.memes[indexPath.row]
-        detailController.meme = selectedMeme.memedImage
-        navigationController!.pushViewController(detailController, animated: true)
+        performSegue(withIdentifier: "detailViewController", sender: selectedMeme)
+        //detailController.meme = selectedMeme.memedImage
+        //navigationController!.pushViewController(detailController, animated: true)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "detailViewController") {
+            let meme = sender as! Meme
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.meme = meme.memedImage!
+        }
     }
     
     

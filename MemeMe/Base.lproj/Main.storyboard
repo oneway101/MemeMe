@@ -85,6 +85,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="memesTableView" destination="XMa-Sc-0ab" id="uMJ-JR-hZ3"/>
+                        <segue destination="1WZ-np-7LH" kind="show" identifier="detailViewController" id="A0M-Sl-AKM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICq-4I-CSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -157,6 +158,7 @@
                     <connections>
                         <outlet property="flowLayout" destination="Lxa-Zp-s9e" id="68d-Qx-AyE"/>
                         <outlet property="memesCollectionView" destination="SGk-zv-MOo" id="qWK-7l-fXM"/>
+                        <segue destination="1WZ-np-7LH" kind="show" identifier="detailViewController" id="O8s-V6-BIr"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGX-dn-oYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,7 +213,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="68b-hA-a0k">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="579"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHr-7S-tP6" userLabel="bottomToolbar">
@@ -237,7 +239,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd0-mE-Lt6">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Meme" id="HBl-sa-Kzn">
                                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="KJk-XM-4cw">
@@ -254,7 +256,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xoX-50-UPi" userLabel="topText">
-                                <rect key="frame" x="0.0" y="94" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -275,7 +277,7 @@
                             <constraint firstAttribute="trailing" secondItem="xHr-7S-tP6" secondAttribute="trailing" id="YR1-6I-zFj"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xHr-7S-tP6" secondAttribute="bottom" id="hyM-BY-HSi"/>
                             <constraint firstItem="68b-hA-a0k" firstAttribute="top" secondItem="Xd0-mE-Lt6" secondAttribute="bottom" id="mLq-qT-FeR"/>
-                            <constraint firstItem="Xd0-mE-Lt6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="qyg-Cb-Wzp"/>
+                            <constraint firstItem="Xd0-mE-Lt6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="qyg-Cb-Wzp"/>
                             <constraint firstAttribute="trailing" secondItem="Xd0-mE-Lt6" secondAttribute="trailing" id="uCk-ad-xh6"/>
                             <constraint firstAttribute="trailing" secondItem="xoX-50-UPi" secondAttribute="trailing" id="z3Y-Cu-Yb3"/>
                         </constraints>
@@ -295,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1290" y="242"/>
+            <point key="canvasLocation" x="732" y="405"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Fv3-9a-wTk">
@@ -328,30 +330,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIF-li-u3z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901.5999999999999" y="-976.46176911544239"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="EOa-OA-HWY">
-            <objects>
-                <navigationController id="yhb-Ig-xe5" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DY9-1n-vJG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="1WZ-np-7LH" kind="relationship" relationship="rootViewController" id="rGk-OV-MrY"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-ER-jaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1178" y="-976"/>
+            <point key="canvasLocation" x="775" y="-343"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CollectionViewTabIcon" width="30" height="30"/>
+        <image name="CollectionViewTabIcon" width="45" height="45"/>
         <image name="TableViewTabIcon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rTH-WE-l5Q"/>
+        <segue reference="O8s-V6-BIr"/>
     </inferredMetricsTieBreakers>
 </document>
