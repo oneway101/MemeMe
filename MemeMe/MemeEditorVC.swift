@@ -95,7 +95,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     func calculateMemePortraitDimensions(){
         //calculate selected meme image dimensions for portrait size
         newMemeWidth = imagePickerView.frame.width
-        newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*self.view.frame.width
+        newMemeHeight = (imagePickerView.image!.size.height/imagePickerView.image!.size.width)*imagePickerView.frame.width
         heightEmptySpace = (imagePickerView.frame.height-newMemeHeight!)*0.5
         widthEmptySpace = 0
         if(newMemeHeight! > imagePickerView.frame.height){
@@ -171,7 +171,9 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
     func orientationDidChange(_ notification:Notification){
-        repositionTextField()
+        if imagePickerView.image != nil {
+            repositionTextField()
+        }
     }
     
     func repositionTextField(){

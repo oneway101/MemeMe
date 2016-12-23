@@ -28,7 +28,6 @@ class SentMemesCollectionVC: UICollectionViewController {
         // MARK: Set spacing between items
         let space: CGFloat = 3.0
         let viewWidth = self.view.frame.width
-        let viewHeight = self.view.frame.height
         let dimension: CGFloat = (viewWidth-(2*space))/3.0
         
         flowLayout.minimumInteritemSpacing = space
