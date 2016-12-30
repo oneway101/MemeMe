@@ -20,8 +20,8 @@ class SentMemesTableVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.reloadData()
-        //self.view.backgroundColor = UIColor.purple
         print(appDelegate.memes.count)
     }
     

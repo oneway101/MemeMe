@@ -20,11 +20,12 @@ class SentMemesCollectionVC: UICollectionViewController {
     let cellID = "SentMemesCollectionViewCell"
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.memesCollectionView.reloadData()
     }
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         // MARK: Set spacing between items
         let space: CGFloat = 3.0
         let viewWidth = self.view.frame.width

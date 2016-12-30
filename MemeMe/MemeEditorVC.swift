@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorVC.swift
 //  MemeMe
 //
 //  Created by Ha Na Gill on 10/31/16.
@@ -40,6 +40,10 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         NSStrokeWidthAttributeName : NSNumber(value: -3.00)
     ]
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultSetting()
@@ -54,9 +58,6 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         subscribeToKeyboardNotifications()
         // Subscribe to device orientation changes
         subscribeToDeviceOrientationNotification()
-        
-        navigationController?.hidesBarsOnTap = true
-
     }
     
     // Unsubscribe
@@ -127,7 +128,9 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
+        if textField.text == "TOP" || textField.text == "BOTTOM" {
+            textField.text = ""
+        }
     }
     
     // Hide the keyboard.
@@ -163,6 +166,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     func unsubscribeToKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object:nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object:nil)
     }
     
     //MARK: Device Orientation Notification
